@@ -3,5 +3,5 @@ name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iterat
 data_loading|function|e61d4bf141ec03d2|||||||||||||||
 date_end|object|33d7a4565e82f665|||||||||||||||
 date_start|object|62901f01e153b40c|||||||||||||||
-raw_data|stem|e8f5f1774059b904|4f80f56580a708f1|e68474c8042ae171|-979620141||t19614.584451395s|cea8b7c815a3a34c|2476|rds|local|vector|||3.545|1m22mThere was 1 warning in dplyrmutate.1m22m36mℹ39m In argument change  logclose  open.Caused by warning in log33m39m NaNs produced|
+raw_data|stem|3d9fe57367dc62ba|4f80f56580a708f1|e68474c8042ae171|-979620141||t19614.5905604324s|cea8b7c815a3a34c|2476|rds|local|vector|||4.34|1m22mThere was 1 warning in dplyrmutate.1m22m36mℹ39m In argument change  logclose  open.Caused by warning in log33m39m NaNs produced|
 xts_to_tibble|function|62d732221cf15e2b|||||||||||||||
