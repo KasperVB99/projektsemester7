@@ -12,7 +12,7 @@ targets::tar_load("cleaned_data")
 
 symbols = c("DANSKE.CO", "NOVO-B.CO")
 
-symbols
+symbols,
 
 prices = tidyquant::tq_get(symbols,
                            from = date_start,
@@ -43,3 +43,5 @@ hej = Quandl::Quandl.search("oil price", per_page = 100) %>%
 
 
 olie_tibble = xts_to_tibble(olie)
+
+hej = 5
