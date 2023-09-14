@@ -45,3 +45,4 @@ hej = Quandl::Quandl.search("oil price", per_page = 100) %>%
 olie_tibble = xts_to_tibble(olie)
 
 hej = 5
+
