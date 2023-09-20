@@ -12,8 +12,6 @@ targets::tar_load("cleaned_data")
 
 symbols = c("DANSKE.CO", "NOVO-B.CO")
 
-symbols,
-
 prices = tidyquant::tq_get(symbols,
                            from = date_start,
                            to = date_end,
