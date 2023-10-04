@@ -6,40 +6,33 @@ targets::tar_make()
 #-------------------------------------------------------------------------------
 
 targets::tar_load("raw_data")
-targets::tar_load("cleaned_data")
+targets::tar_load("clean_data")
+targets::tar_load("engineered_features")
 
 #-------------------------------------------------------------------------------
 
-symbols = c("DANSKE.CO", "NOVO-B.CO")
-
-prices = tidyquant::tq_get(symbols,
-                           from = date_start,
-                           to = date_end,
-                           get = "stock.prices") %>% 
-  dplyr::arrange(date) %>% 
-  dplyr::group_by(hour = lubridate::hour(date), symbol) %>%
-  dplyr::mutate(percent_change = (log(close) - log(dplyr::lag(close))) * 100) %>%
-  dplyr::ungroup() %>%
-  tidyr::drop_na() %>% 
-  dplyr::select(date, symbol, percent_change, open, close)
-
-diff(prices$close, 1)
-
-novo = prices %>% 
-  dplyr::filter(symbol == "NOVO-B.CO")
-danske = prices %>% 
-  dplyr::filter(symbol == "DANSKE.CO")
+## Idéer til feature engineering:
+# 1. Gårsdagens udvikling på det amerikanske aktiemarked
+# 2. Gårsdagens udvikling på oliemarkedet (AR)
+# 3. Noget volatilitet?? (giver måske ikke meget mening i en klassifikationsmodel)
+# 4. Dollar-kursen
+# 5. Kursen på amerikanske statsobligationer
+# 6. Kursen på andre 'sammenlignelige" råvarer
+#    - Kan der evt. være en tendens til, at olieprisen stiger,
+#       når gas- eller kornprisen stiger?
+# 7. 
 
 
-plot(x = novo$date, y = novo$percent_change, type = "l")
-lines(x = danske$date, y = danske$percent_change, col = "red")
+rsample::training(clean_data)
 
-olie = Quandl::Quandl("OPEC/ORB", type = "xts")
+visdat::vis_miss(raw_data)
 
-hej = Quandl::Quandl.search("oil price", per_page = 100) %>% 
-  dplyr::filter(frequency == "daily")
+ ggplot2::ggplot(raw_data, ggplot2::aes(x = usd_exchange, y = oil_price)) +
+  ggplot2::geom_line()
+
+hej = raw_data %>% 
+  tsibble::as_tsibble() %>% 
+  dplyr::transmute(log_return_oil = log(oil_price / dplyr::lag(oil_price)))
 
 
-olie_tibble = xts_to_tibble(olie)
-
-hej = 5
+summary(glm(positive_oil_return ~ oil_return_1_lag, data = engineered_features))

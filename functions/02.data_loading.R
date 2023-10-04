@@ -1,17 +1,34 @@
 data_loading = function(date_start,
                         date_end){
-  date_start = lubridate::with_tz(date_start, tzone = "CET")
-  date_end = lubridate::with_tz(date_end, tzone = "CET")
   
-  symbols = c("TSLA", "NFLX")
+  oil_prices = tidyquant::tq_get("DCOILBRENTEU", 
+                              get = "economic.data", 
+                              from = date_start,
+                              to = date_end) %>% 
+    dplyr::select(date = date, oil_price = price) %>% 
+    dplyr::arrange(date)
   
-  prices = tidyquant::tq_get(symbols,
-                             from = date_start,
-                             to = date_end,
-                             get = "stock.prices") %>% 
-    dplyr::mutate(change = log(close - open)) %>% 
-    dplyr::select(date, symbol, change, open, close)
-
+  bond_spread = tidyquant::tq_get("T10Y2Y", 
+                                  get = "economic.data", 
+                                  from = date_start,
+                                  to = date_end) %>% 
+    dplyr::select(date = date, bond_spread = price) %>% 
+    dplyr::arrange(date)
   
-  return(prices)
+  usd_eur_exchange = tidyquant::tq_get("DEXUSEU", 
+                                  get = "economic.data", 
+                                  from = date_start,
+                                  to = date_end) %>% 
+    dplyr::select(date = date, usd_exchange = price) %>% 
+    dplyr::arrange(date)
+  
+  all_together_list = list(oil_prices, bond_spread, 
+                           usd_eur_exchange)
+  
+  all_together = all_together_list %>% 
+    purrr::reduce(dplyr::full_join)
+  
+  return(all_together)
 }
+
+
