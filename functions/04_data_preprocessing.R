@@ -1,5 +1,5 @@
-feature_engineering = function(raw_data){
-  
+data_preprocessing = function(raw_data){
+  # Denne funktion skal laves om til udelukkende at bruge recipe-funktioner
   engineered_features = raw_data %>% 
     dplyr::mutate(log_return_oil = log(oil_price / dplyr::lag(oil_price))) %>% 
     dplyr::mutate(positive_oil_return = dplyr::if_else(log_return_oil > 0, 1, 0),

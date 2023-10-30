@@ -10,14 +10,14 @@ list(
     )
   ),
   targets::tar_target(
-    clean_data,
-    data_cleaning(
+    split_data,
+    data_splitting(
       raw_data = raw_data
     )
   ),
   targets::tar_target(
-    engineered_features,
-    feature_engineering(
+    preprocessed_data,
+    data_preprocessing(
       raw_data = raw_data
     )
   )

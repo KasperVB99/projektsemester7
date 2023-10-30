@@ -6,7 +6,7 @@ targets::tar_make()
 #-------------------------------------------------------------------------------
 
 targets::tar_load("raw_data")
-targets::tar_load("clean_data")
+targets::tar_load("split_data")
 targets::tar_load("engineered_features")
 
 #-------------------------------------------------------------------------------
@@ -20,7 +20,8 @@ targets::tar_load("engineered_features")
 # 6. Kursen på andre 'sammenlignelige" råvarer
 #    - Kan der evt. være en tendens til, at olieprisen stiger,
 #       når gas- eller kornprisen stiger?
-# 7. 
+# 7. Produktionssiden
+# 8. Oliebeholdninger
 
 
 rsample::training(clean_data)

@@ -1,4 +1,4 @@
-data_cleaning = function(raw_data){
+data_splitting = function(raw_data){
   
   initial_split = rsample::initial_time_split(raw_data, prop = 0.8)
   

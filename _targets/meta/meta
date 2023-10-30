@@ -3,9 +3,11 @@ name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iterat
 clean_data|stem|8f6594e2751a4531|301f753dfc8c4246|effddbc11a22316b|-1026135149||t19634.5519945942s|dbf852b7f874f1df|3842|rds|local|vector|||0.17||
 data_cleaning|function|3af4f587cce6af65|||||||||||||||
 data_loading|function|931eafde68dd337b|||||||||||||||
+data_splitting|function|3af4f587cce6af65|||||||||||||||
 date_end|object|adec5a60681cbe5b|||||||||||||||
 date_start|object|fba6481bb22e254b|||||||||||||||
 engineered_features|stem|52a16e1cfe9b58e0|8e508c588bf8a00c|6a10196e94886cc9|-1045723845||t19634.608349112s|b58f86c8ef1b867a|2909|rds|local|vector|||0.12||
 feature_engineering|function|90da3a6a667953f6|||||||||||||||
 raw_data|stem|2dcc372c0e9e20ab|4f80f56580a708f1|a431140a9458f931|-979620141||t19634.5048137641s|060ec5c77ccce4ee|3712|rds|local|vector|||3.5||
+split_data|stem|8f6594e2751a4531|6d4e49541493dd48|26ee7f45a0563f1a|1304765126||t19660.8757547728s|dbf852b7f874f1df|3842|rds|local|vector|||0.3||
 xts_to_tibble|function|62d732221cf15e2b|||||||||||||||
