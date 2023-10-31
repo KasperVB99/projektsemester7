@@ -7,7 +7,7 @@ targets::tar_make()
 
 targets::tar_load("raw_data")
 targets::tar_load("split_data")
-targets::tar_load("engineered_features")
+targets::tar_load("preprocessed_data")
 
 #-------------------------------------------------------------------------------
 
