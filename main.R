@@ -13,11 +13,16 @@ targets::tar_load("preprocessed_data")
 
 
 oil_recipe = recipes::recipe(split_data$training) %>% 
-  recipes::step_mutate_at(where(is.numeric), fn = ~ log(. / dplyr::lag(.))) %>% 
-  recipes::step_mutate(positive_oil_return = dplyr::lag(dplyr::if_else(oil_price_europe > 0, 1, 0))) %>% 
-  recipes::prep() %>% 
-  recipes::bake(new_data = NULL)
-
+  recipes::step_mutate_at(where(is.numeric), fn = ~ log(. / dplyr::lag(.)), 
+                          role = "predictor") %>% 
+  recipes::step_mutate(positive_oil_return = 
+                         dplyr::lag(dplyr::if_else(oil_price_europe > 0, 1, 0)),
+                       role = "outcome") %>% 
+  recipes::step_string2factor(recipes::all_nominal()) %>% 
+  recipes::step_naomit(positive_oil_return) %>% 
+  recipes::step_date(date, features = "dow") %>% 
+  recipes::step_dummy(date_dow) %>% 
+  recipes::step_rm(c(date, date_dow_Sat))
 
 
 
