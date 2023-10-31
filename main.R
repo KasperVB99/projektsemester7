@@ -21,6 +21,7 @@ oil_recipe = recipes::recipe(split_data$training) %>%
 
 
 
+
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked
 # 2. Gårsdagens udvikling på oliemarkedet (AR)
@@ -32,3 +33,4 @@ oil_recipe = recipes::recipe(split_data$training) %>%
 #       når gas- eller kornprisen stiger?
 # 7. Produktionssiden
 # 8. Oliebeholdninger
+
