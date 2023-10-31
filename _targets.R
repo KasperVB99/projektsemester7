@@ -18,7 +18,7 @@ list(
   targets::tar_target(
     preprocessed_data,
     data_preprocessing(
-      raw_data = raw_data
+      training_data = split_data$training
     )
   )
 )

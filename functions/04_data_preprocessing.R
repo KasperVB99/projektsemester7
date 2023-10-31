@@ -1,8 +1,6 @@
-data_preprocessing = function(raw_data){
-  # Denne funktion skal laves om til udelukkende at bruge recipe-funktioner
-  engineered_features = raw_data %>% 
-    dplyr::mutate(log_return_oil = log(oil_price / dplyr::lag(oil_price))) %>% 
-    dplyr::mutate(positive_oil_return = dplyr::if_else(log_return_oil > 0, 1, 0),
-                  oil_return_1_lag = dplyr::lag(log_return_oil)) %>% 
-    dplyr::select(date, positive_oil_return, oil_return_1_lag)
+data_preprocessing = function(training_data){
+  # oil_recipe = recipes::recipe(training_data) %>% 
+  #   recipes::step_mutate(positive_oil_return = 
+  #                          dplyr::if_else((oil_price_europe - dplyr::lag(oil_price_europe)) > 0, 1, 0)) %>% 
+  #   recipes::
 }

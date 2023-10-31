@@ -32,8 +32,8 @@ visdat::vis_miss(raw_data)
   ggplot2::geom_line()
 
 hej = raw_data %>% 
-  tsibble::as_tsibble() %>% 
-  dplyr::transmute(log_return_oil = log(oil_price / dplyr::lag(oil_price)))
+  tidyr::drop_na()
 
 
 summary(glm(positive_oil_return ~ oil_return_1_lag, data = engineered_features))
+
