@@ -11,6 +11,16 @@ targets::tar_load("preprocessed_data")
 
 #-------------------------------------------------------------------------------
 
+
+oil_recipe = recipes::recipe(split_data$training) %>% 
+  recipes::step_mutate_at(where(is.numeric), fn = ~ log(. / dplyr::lag(.))) %>% 
+  recipes::step_mutate(positive_oil_return = dplyr::lag(dplyr::if_else(oil_price_europe > 0, 1, 0))) %>% 
+  recipes::prep() %>% 
+  recipes::bake(new_data = NULL)
+
+
+
+
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked
 # 2. Gårsdagens udvikling på oliemarkedet (AR)
@@ -22,18 +32,3 @@ targets::tar_load("preprocessed_data")
 #       når gas- eller kornprisen stiger?
 # 7. Produktionssiden
 # 8. Oliebeholdninger
-
-
-rsample::training(clean_data)
-
-visdat::vis_miss(raw_data)
-
- ggplot2::ggplot(raw_data, ggplot2::aes(x = usd_exchange, y = oil_price)) +
-  ggplot2::geom_line()
-
-hej = raw_data %>% 
-  tidyr::drop_na()
-
-
-summary(glm(positive_oil_return ~ oil_return_1_lag, data = engineered_features))
-
