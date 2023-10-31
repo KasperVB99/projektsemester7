@@ -6,43 +6,31 @@ targets::tar_make()
 #-------------------------------------------------------------------------------
 
 targets::tar_load("raw_data")
-targets::tar_load("cleaned_data")
+targets::tar_load("split_data")
+targets::tar_load("preprocessed_data")
 
 #-------------------------------------------------------------------------------
 
-symbols = c("DANSKE.CO", "NOVO-B.CO")
 
-symbols,
-
-prices = tidyquant::tq_get(symbols,
-                           from = date_start,
-                           to = date_end,
-                           get = "stock.prices") %>% 
-  dplyr::arrange(date) %>% 
-  dplyr::group_by(hour = lubridate::hour(date), symbol) %>%
-  dplyr::mutate(percent_change = (log(close) - log(dplyr::lag(close))) * 100) %>%
-  dplyr::ungroup() %>%
-  tidyr::drop_na() %>% 
-  dplyr::select(date, symbol, percent_change, open, close)
-
-diff(prices$close, 1)
-
-novo = prices %>% 
-  dplyr::filter(symbol == "NOVO-B.CO")
-danske = prices %>% 
-  dplyr::filter(symbol == "DANSKE.CO")
+oil_recipe = recipes::recipe(split_data$training) %>% 
+  recipes::step_mutate_at(where(is.numeric), fn = ~ log(. / dplyr::lag(.))) %>% 
+  recipes::step_mutate(positive_oil_return = dplyr::lag(dplyr::if_else(oil_price_europe > 0, 1, 0))) %>% 
+  recipes::prep() %>% 
+  recipes::bake(new_data = NULL)
 
 
-plot(x = novo$date, y = novo$percent_change, type = "l")
-lines(x = danske$date, y = danske$percent_change, col = "red")
-
-olie = Quandl::Quandl("OPEC/ORB", type = "xts")
-
-hej = Quandl::Quandl.search("oil price", per_page = 100) %>% 
-  dplyr::filter(frequency == "daily")
 
 
-olie_tibble = xts_to_tibble(olie)
 
-hej = 5
+## Idéer til feature engineering:
+# 1. Gårsdagens udvikling på det amerikanske aktiemarked
+# 2. Gårsdagens udvikling på oliemarkedet (AR)
+# 3. Noget volatilitet?? (giver måske ikke meget mening i en klassifikationsmodel)
+# 4. Dollar-kursen
+# 5. Kursen på amerikanske statsobligationer
+# 6. Kursen på andre 'sammenlignelige" råvarer
+#    - Kan der evt. være en tendens til, at olieprisen stiger,
+#       når gas- eller kornprisen stiger?
+# 7. Produktionssiden
+# 8. Oliebeholdninger
 
