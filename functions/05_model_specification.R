@@ -1,5 +1,5 @@
 model_specification = function(){
-  model_spec_logistic = parsnip::logistic_reg(
+  model_spec_logit = parsnip::logistic_reg(
     mode = "classification",
     engine = "glm"
   )
@@ -9,9 +9,8 @@ model_specification = function(){
     engine = "kknn"
   )
   
-  models = list(model_spec_logistic = model_spec_logistic,
+  models = list(model_spec_logit = model_spec_logit,
                 model_spec_knn = model_spec_knn)
   
   return(models)
-  
 }

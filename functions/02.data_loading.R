@@ -77,7 +77,12 @@ data_loading = function(date_start,
                            moody_corp_bond_yield)
   
   all_together = all_together_list %>% 
-    purrr::reduce(dplyr::full_join)
+    purrr::reduce(dplyr::full_join) %>% 
+    dplyr::mutate(positive_oil_return = 
+                    as.factor(dplyr::if_else(log(oil_price_europe / dplyr::lag(oil_price_europe)) 
+                                            > 0, 1, 0))) %>% 
+    tidyr::drop_na(c(positive_oil_return,
+                     oil_price_europe))
   
   return(all_together)
 }

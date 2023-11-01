@@ -20,5 +20,24 @@ list(
     data_preprocessing(
       training_data = split_data$training
     )
+  ),
+  targets::tar_target(
+    specified_models,
+    model_specification(
+    )
+  ),
+  targets::tar_target(
+    defined_workflows,
+    define_workflows(
+      preprocessed_data = preprocessed_data,
+      specified_models = specified_models
+    )
+  ),
+  targets::tar_target(
+    fit_and_predict,
+    fit_and_predict(
+      defined_workflows = defined_workflows,
+      split_data = split_data
+    )
   )
 )

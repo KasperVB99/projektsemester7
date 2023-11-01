@@ -1,20 +1,20 @@
-define_workflows = function(preprocessed_data, models){
-  logistic_model = models$model_spec_logistic
-  knn_model = models$model_spec_knn
-  
-  logistic_recipe = preprocessed_data$logistic_recipe
+define_workflows = function(preprocessed_data, specified_models){
+  logit_model = specified_models$model_spec_logit
+  knn_model = specified_models$model_spec_knn
+
+  logit_recipe = preprocessed_data$logit_recipe
   knn_recipe = preprocessed_data$knn_recipe
-  
-  formula = "positive_oil_return ~ ."
-  
-  logistic_workflow = workflows::workflow() %>% 
-    workflows::add_recipe(logistic_recipe) %>% 
-    workflows::add_model(logistic_model)
-  
-  knn_workflow = workflows::workflow() %>% 
-    workflows::add_recipe(knn_recipe) %>% 
+
+  logit_workflow = workflows::workflow() %>%
+    workflows::add_recipe(logit_recipe) %>%
+    workflows::add_model(logit_model)
+
+  knn_workflow = workflows::workflow() %>%
+    workflows::add_recipe(knn_recipe) %>%
     workflows::add_model(knn_model)
-  
-  workflows = list(logistic_workflow = logistic_workflow,
+
+  workflows = list(logit_workflow = logit_workflow,
                    knn_workflow = knn_workflow)
+  
+  return(workflows)
 }

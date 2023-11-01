@@ -1,6 +1,6 @@
 data_splitting = function(raw_data){
   
-  initial_split = rsample::initial_time_split(raw_data, prop = 0.8)
+  initial_split = rsample::initial_time_split(raw_data, prop = 0.8, lag = 2)
   
   training = rsample::training(initial_split)
   testing = rsample::testing(initial_split)
