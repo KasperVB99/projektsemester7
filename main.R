@@ -8,19 +8,35 @@ targets::tar_make()
 targets::tar_load("raw_data")
 targets::tar_load("split_data")
 targets::tar_load("preprocessed_data")
+targets::tar_load("specified_models")
+targets::tar_load("defined_workflows")
+targets::tar_load("tuned_models")
+targets::tar_load("fitted_and_predicted")
 
 #-------------------------------------------------------------------------------
+model_evaluation(fitted_and_predicted)
+
+logit_fit = fitted_and_predicted$logit_fit
+knn_fit = fitted_and_predicted$knn_fit
+
+evaluation_knn = tune::collect_metrics(knn_fit) %>% 
+  dplyr::mutate(model = "knn")
+  
+evaluation_logit = tune::collect_metrics(logit_fit) %>% 
+  dplyr::mutate(model = "logit")
+
+evaluation = evaluation_logit %>% 
+  dplyr::bind_rows(evaluation_knn) %>% 
+  dplyr::filter(.metric == "accuracy") %>% 
+  dplyr::select(model, metric = .metric, estimate = .estimate)
 
 
-oil_recipe = recipes::recipe(split_data$training) %>% 
-  recipes::step_mutate_at(where(is.numeric), fn = ~ log(. / dplyr::lag(.))) %>% 
-  recipes::step_mutate(positive_oil_return = dplyr::lag(dplyr::if_else(oil_price_europe > 0, 1, 0))) %>% 
-  recipes::prep() %>% 
-  recipes::bake(new_data = NULL)
 
 
 
 
+library(tidyverse)
+library(tidymodels)
 
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked
@@ -33,4 +49,7 @@ oil_recipe = recipes::recipe(split_data$training) %>%
 #       når gas- eller kornprisen stiger?
 # 7. Produktionssiden
 # 8. Oliebeholdninger
+# 9. Kan der være nogle regimer i olieprisen (er der større sandsynlighed for at olieprisen stiger,
+#       når den fx. er steget mere end 50% af de sidste 10 dage?)
+
 
