@@ -6,7 +6,8 @@ model_specification = function(){
   
   model_spec_knn = parsnip::nearest_neighbor(
     mode = "classification",
-    engine = "kknn"
+    engine = "kknn",
+    neighbors = parsnip::tune()
   )
   
   models = list(model_spec_logit = model_spec_logit,

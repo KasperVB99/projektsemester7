@@ -10,40 +10,33 @@ targets::tar_load("split_data")
 targets::tar_load("preprocessed_data")
 targets::tar_load("specified_models")
 targets::tar_load("defined_workflows")
-targets::tar_load("fit_and_predict")
+targets::tar_load("tuned_models")
+targets::tar_load("fitted_and_predicted")
 
 #-------------------------------------------------------------------------------
+model_evaluation(fitted_and_predicted)
 
-logit_recipe = recipes::recipe(positive_oil_return ~ ., split_data$training) %>% 
-  recipes::step_mutate_at(recipes::all_numeric_predictors(), 
-                          fn = ~ . - dplyr::lag(.)) %>% 
-  recipes::step_date(date, features = "dow") %>%
-  recipes::step_dummy(date_dow) %>%
-  recipes::step_bin2factor(dplyr::contains("date_dow")) %>%
-  recipes::step_lag(recipes::all_numeric_predictors(), 
-                    keep_original_cols = FALSE) %>% 
-  recipes::step_rm(c(date, date_dow_Sat, date_dow_Fri)) %>% 
-  recipes::step_corr(recipes::all_numeric_predictors()) %>% 
-  recipes::step_naomit(dplyr::contains("lag_1"), skip = FALSE)
+logit_fit = fitted_and_predicted$logit_fit
+knn_fit = fitted_and_predicted$knn_fit
 
-hej = logit_recipe %>% 
-  recipes::prep() %>% 
-  recipes::bake(new_data = split_data$testing)
-
-
-hej = fit_and_predict$logit_fit_and_predict$logit_prediction
-
-preprocessed_data$logit_recipe %>% 
-  recipes::prep() %>% 
-  recipes::bake(new_data = split_data$testing)
-
-
-evaluation = fit_and_predict$knn_fit_and_predict$knn_prediction %>% 
-  dplyr::bind_cols(hej$positive_oil_return)
-
-score = evaluation %>% 
-  yardstick::accuracy(truth = `...2`, estimate = .pred_class)
+evaluation_knn = tune::collect_metrics(knn_fit) %>% 
+  dplyr::mutate(model = "knn")
   
+evaluation_logit = tune::collect_metrics(logit_fit) %>% 
+  dplyr::mutate(model = "logit")
+
+evaluation = evaluation_logit %>% 
+  dplyr::bind_rows(evaluation_knn) %>% 
+  dplyr::filter(.metric == "accuracy") %>% 
+  dplyr::select(model, metric = .metric, estimate = .estimate)
+
+
+
+
+
+
+library(tidyverse)
+library(tidymodels)
 
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked
@@ -56,4 +49,7 @@ score = evaluation %>%
 #       når gas- eller kornprisen stiger?
 # 7. Produktionssiden
 # 8. Oliebeholdninger
+# 9. Kan der være nogle regimer i olieprisen (er der større sandsynlighed for at olieprisen stiger,
+#       når den fx. er steget mere end 50% af de sidste 10 dage?)
+
 
