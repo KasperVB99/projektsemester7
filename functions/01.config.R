@@ -1,5 +1,4 @@
 library(magrittr)
-library(tidymodels)
 
 Quandl::Quandl.api_key("2pcnRD6C-v6Wph2VdnVs")
 
