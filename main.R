@@ -12,31 +12,9 @@ targets::tar_load("specified_models")
 targets::tar_load("defined_workflows")
 targets::tar_load("tuned_models")
 targets::tar_load("fitted_and_predicted")
+targets::tar_load("evaluated_models")
 
 #-------------------------------------------------------------------------------
-model_evaluation(fitted_and_predicted)
-
-logit_fit = fitted_and_predicted$logit_fit
-knn_fit = fitted_and_predicted$knn_fit
-
-evaluation_knn = tune::collect_metrics(knn_fit) %>% 
-  dplyr::mutate(model = "knn")
-  
-evaluation_logit = tune::collect_metrics(logit_fit) %>% 
-  dplyr::mutate(model = "logit")
-
-evaluation = evaluation_logit %>% 
-  dplyr::bind_rows(evaluation_knn) %>% 
-  dplyr::filter(.metric == "accuracy") %>% 
-  dplyr::select(model, metric = .metric, estimate = .estimate)
-
-
-
-
-
-
-library(tidyverse)
-library(tidymodels)
 
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked
