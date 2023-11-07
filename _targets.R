@@ -49,7 +49,7 @@ list(
     )
   ),
   targets::tar_target(
-    evaluated_model,
+    evaluated_models,
     model_evaluation(
       fitted_and_predicted = fitted_and_predicted
     )

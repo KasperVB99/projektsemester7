@@ -11,7 +11,7 @@ define_workflows|function|0dc37e179e40018f|||||||||||||||
 defined_workflows|stem|9aa6939ba208441c|5ebdf4f4e6efbc18|cf31ed5ef97c887d|-907561461||t19668.6085861153s|5c80e2e234ad6086|672873|rds|local|vector|||0||
 engineered_features|stem|52a16e1cfe9b58e0|8e508c588bf8a00c|6a10196e94886cc9|-1045723845||t19634.608349112s|b58f86c8ef1b867a|2909|rds|local|vector|||0.12||
 evaluated_model|stem|98d19c8a8fa87e2b|1abb3e6ebcbb0491|6c5973828ba7925b|-588240787||t19668.6392172071s|0eb7ad5ce87b6af8|200|rds|local|vector|||0.02||
-evaluated_models|stem||5637f09f2bae1722|ef46db3751d8e999|140718326||t19668.6261752093s||0|rds|local|vector|||0||could not find function model_evaluation
+evaluated_models|stem|98d19c8a8fa87e2b|1abb3e6ebcbb0491|6c5973828ba7925b|140718326||t19668.6468783858s|0eb7ad5ce87b6af8|200|rds|local|vector|||0.03||
 feature_engineering|function|90da3a6a667953f6|||||||||||||||
 fit_and_predict|function|7861b0563c068ca0|||||||||||||||
 fit_and_predict_function|function|d8a2338d6a4e44c8|||||||||||||||
