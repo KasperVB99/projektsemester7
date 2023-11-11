@@ -1,5 +1,5 @@
-fit_and_predict = function(finalized_workflows, defined_workflows, split_data){
-  logit_workflow = defined_workflows$logit_workflow
+fit_and_predict = function(finalized_workflows, split_data){
+  logit_workflow = finalized_workflows$finalized_logit_workflow
   knn_workflow = finalized_workflows$finalized_knn_workflow
   split = split_data$initial_split
   

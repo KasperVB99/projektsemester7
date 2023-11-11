@@ -1,7 +1,9 @@
 model_specification = function(){
   model_spec_logit = parsnip::logistic_reg(
     mode = "classification",
-    engine = "glm"
+    engine = "glmnet",
+    penalty = parnsip::tune(),
+    mixture = parsnip::tune()
   )
   
   model_spec_knn = parsnip::nearest_neighbor(
