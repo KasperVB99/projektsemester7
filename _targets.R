@@ -44,7 +44,6 @@ list(
     fitted_and_predicted,
     fit_and_predict(
       finalized_workflows = tuned_models$finalized_workflows,
-      defined_workflows = defined_workflows,
       split_data = split_data
     )
   ),

@@ -1,6 +1,7 @@
 data_splitting = function(raw_data){
   
-  initial_split = rsample::initial_time_split(raw_data, prop = 0.8, lag = 2)
+  initial_split = raw_data %>% 
+    timetk::time_series_split(assess = "18 months", cumulative = TRUE)
   
   training = rsample::training(initial_split)
   testing = rsample::testing(initial_split)

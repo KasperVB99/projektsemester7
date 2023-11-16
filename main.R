@@ -1,7 +1,7 @@
 library(magrittr)
 #-------------------------------------------------------------------------------
 
-targets::tar_make()
+targets::tar_make_future(workers = 5)
 
 #-------------------------------------------------------------------------------
 
@@ -16,6 +16,18 @@ targets::tar_load("evaluated_models")
 
 #-------------------------------------------------------------------------------
 
+
+resamples %>% 
+  extract_dates_rset() %>% 
+  dplyr::mutate(id = stringr::str_replace_all(id, "Slice", "Resample ")) %>% 
+  print() %>% 
+  plot_dates_rset() + 
+  ggthemes::theme_economist() +
+  ggplot2::labs(y = "", x = "") +
+  ggplot2::theme(legend.position = "none")
+
+mean(as.numeric(split_data$testing$positive_oil_return)) - 1 
+
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked
 # 2. Gårsdagens udvikling på oliemarkedet (AR)
@@ -29,5 +41,3 @@ targets::tar_load("evaluated_models")
 # 8. Oliebeholdninger
 # 9. Kan der være nogle regimer i olieprisen (er der større sandsynlighed for at olieprisen stiger,
 #       når den fx. er steget mere end 50% af de sidste 10 dage?)
-
-

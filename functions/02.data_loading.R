@@ -78,13 +78,20 @@ data_loading = function(date_start,
   
   all_together = all_together_list %>% 
     purrr::reduce(dplyr::full_join) %>% 
+    dplyr::arrange(date) %>% 
     dplyr::mutate(positive_oil_return = 
                     as.factor(dplyr::if_else(log(oil_price_europe / dplyr::lag(oil_price_europe)) 
                                              > 0, 1, 0))) %>% 
     dplyr::mutate(dplyr::across(tidyselect::where(is.numeric), ~ . - dplyr::lag(.))) %>% 
     timetk::tk_augment_lags(tidyselect::where(is.numeric), 
                             .lags = 1:3) %>% 
-    dplyr::select(date, positive_oil_return, dplyr::contains("lag")) %>% 
+    dplyr::mutate(rolling_mean = slider::slide_index_dbl(as.numeric(positive_oil_return), 
+                                                         .i = date, 
+                                                         .f = mean, 
+                                                         na.rm = TRUE, 
+                                                         .before = lubridate::days(10), 
+                                                         .after = -lubridate::days(1)) - 1) %>% 
+    dplyr::select(date, positive_oil_return, rolling_mean, dplyr::contains("lag")) %>% 
     tidyr::drop_na()
   
   return(all_together)
