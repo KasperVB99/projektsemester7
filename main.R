@@ -16,27 +16,15 @@ targets::tar_load("evaluated_models")
 
 #-------------------------------------------------------------------------------
 
-split_data$resamples
 
-sjov = raw_data %>%  timetk::time_series_split(assess = "1 year", cumulative = TRUE)
-
-
-hej = preprocessed_data$knn_recipe %>% 
-  recipes::prep() %>% 
-  recipes::bake(new_data = NULL)
-
-tune::autoplot(tuned_models$grid_results$knn_grid_results, metric = "accuracy")
-
-tuned_models$grid_results$logit_grid_results %>% tune::collect_metrics() %>% 
-  dplyr::filter(.metric == "accuracy") %>% 
-  dplyr::arrange(desc(mean))
-
-raw_data$positive_oil_return
-
-hej = broom::tidy(fitted_and_predicted$logit_fit$.workflow[[1]])
-
-hej
-
+resamples %>% 
+  extract_dates_rset() %>% 
+  dplyr::mutate(id = stringr::str_replace_all(id, "Slice", "Resample ")) %>% 
+  print() %>% 
+  plot_dates_rset() + 
+  ggthemes::theme_economist() +
+  ggplot2::labs(y = "", x = "") +
+  ggplot2::theme(legend.position = "none")
 
 mean(as.numeric(split_data$testing$positive_oil_return)) - 1 
 
@@ -53,5 +41,3 @@ mean(as.numeric(split_data$testing$positive_oil_return)) - 1
 # 8. Oliebeholdninger
 # 9. Kan der være nogle regimer i olieprisen (er der større sandsynlighed for at olieprisen stiger,
 #       når den fx. er steget mere end 50% af de sidste 10 dage?)
-
-

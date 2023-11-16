@@ -1,6 +1,7 @@
 fit_and_predict = function(finalized_workflows, split_data){
   logit_workflow = finalized_workflows$finalized_logit_workflow
   knn_workflow = finalized_workflows$finalized_knn_workflow
+  rand_forest_workflow = finalized_workflows$finalized_rand_forest_workflow
   split = split_data$initial_split
   
   logit_fit = tune::last_fit(logit_workflow,
@@ -9,9 +10,13 @@ fit_and_predict = function(finalized_workflows, split_data){
   knn_fit = tune::last_fit(knn_workflow,
                            split)
   
+  rand_forest_fit = tune::last_fit(rand_forest_workflow,
+                                   split)
+  
   
   fitted_and_predicted = list(logit_fit = logit_fit,
-                              knn_fit = knn_fit)
+                              knn_fit = knn_fit,
+                              rand_forest_fit = rand_forest_fit)
   
   return(fitted_and_predicted)
 }
