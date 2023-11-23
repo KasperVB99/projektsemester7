@@ -8,22 +8,22 @@ data_splitting|function|5b6e199ce49e9700|||||||||||||||
 date_end|object|1d6cef234c9eece6|||||||||||||||
 date_start|object|b3e26f153c54f91c|||||||||||||||
 define_workflows|function|eacbd0b431272d0e|||||||||||||||
-defined_workflows|stem|831d96e6beaf713d|5ebdf4f4e6efbc18|967f44d74d23c05d|-907561461||t19677.606587593s|647245573208edf4|1507356|rds|local|vector|||0.02||
+defined_workflows|stem|8322035827beeda0|5ebdf4f4e6efbc18|9c3743608ce3a37b|-907561461||t19684.366725678s|9fb6e95895a5265f|1507414|rds|local|vector|||0.04||
 engineered_features|stem|52a16e1cfe9b58e0|8e508c588bf8a00c|6a10196e94886cc9|-1045723845||t19634.608349112s|b58f86c8ef1b867a|2909|rds|local|vector|||0.12||
 evaluated_model|stem|98d19c8a8fa87e2b|1abb3e6ebcbb0491|6c5973828ba7925b|-588240787||t19668.6392172071s|0eb7ad5ce87b6af8|200|rds|local|vector|||0.02||
-evaluated_models|stem|eb34c7779754b1b8|1abb3e6ebcbb0491|387cc3ffe7dd33c9|140718326||t19677.608512011s|eaf4be1ffe060f33|217|rds|local|vector|||0.01||
+evaluated_models|stem|023b85c23088ba14|1abb3e6ebcbb0491|8b6c47626e387685|140718326||t19684.3714396344s|eaf4be1ffe060f33|217|rds|local|vector|||0.02||
 feature_engineering|function|90da3a6a667953f6|||||||||||||||
 fit_and_predict|function|3a67e8f85424c29a|||||||||||||||
 fit_and_predict_function|function|d8a2338d6a4e44c8|||||||||||||||
-fitted_and_predicted|stem|ba4812afb06dc7cd|1e592f98da140fc3|12f096435c935d18|-285962305||t19677.6085112492s|49bc9d548ff77f66|4688451|rds|local|vector|||3.23||
+fitted_and_predicted|stem|d940e2a4b721c6d9|1e592f98da140fc3|d0b6931698c0358c|-285962305||t19684.3714389712s|351076d551e33fa2|3417151|rds|local|vector|||1.44||
 model_evaluation|function|550cbcd5fba8817e|||||||||||||||
-model_specification|function|4c39ccfe07926b94|||||||||||||||
-model_tuning|function|3c082deac6a30a5c|||||||||||||||
+model_specification|function|903d0bf8bdcb2f49|||||||||||||||
+model_tuning|function|4c6b531fd7fec033|||||||||||||||
 preprocessed_data|stem|e9913c1a6c4d8786|9d50e42f62fabbc8|7a1bce431ea35894|1821694953||t19677.6065834432s|d2a9fcb8b3ac0a61|1380097|rds|local|vector|||0.14||
 raw_data|stem|73b12643869176d4|4f80f56580a708f1|4788d594f3dd6435|-979620141||t19677.6065508577s|929c419b51ad0992|146788|rds|local|vector|||8.7||
-specified_models|stem|e31e432741b5dcde|5e749b1b63e68387|47ad38b6b69cc3b6|-178471735||t19677.5884138423s|1857e7ff7402e46f|547|rds|local|vector|||0.25||
+specified_models|stem|724786412772441a|5e749b1b63e68387|a1d1db78cd1fa7f7|-178471735||t19684.3666965625s|f3cf95d7b5806e03|565|rds|local|vector|||0.33||
 split_data|stem|b2a0894fb0bc881a|6d4e49541493dd48|c4e994a415be1871|1304765126||t19677.6065774553s|2c4e94377ab9b620|4283853|rds|local|vector|||0.86||
 tune_model|function|65ae31e5752c7a02|||||||||||||||
 tune_models|function|b28ed9213adf2775|||||||||||||||
-tuned_models|stem|b24f1534a39c6511|139e09ce61f5e560|f27d4a372f52360c|2128359965||t19677.6084637051s|8be9e92c9f3aa69c|13543966|rds|local|vector|||159.03|pakke glmnet blev bygget under R version 4.3.2. pakke ranger blev bygget under R version 4.3.2|
+tuned_models|stem|27b17d6e4e8712fa|139e09ce61f5e560|3ccea7e8663b134a|2128359965||t19684.3714150528s|02884a0adaa6a7ed|13545773|rds|local|vector|||112.84|pakke glmnet blev bygget under R version 4.3.2. pakke Matrix blev bygget under R version 4.3.2|
 xts_to_tibble|function|62d732221cf15e2b|||||||||||||||

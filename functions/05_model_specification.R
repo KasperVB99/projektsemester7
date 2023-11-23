@@ -12,10 +12,11 @@ model_specification = function(){
     neighbors = parsnip::tune()
   )
   
-  model_spec_rand_forest = parsnip::rand_forest(
+  model_spec_rand_forest = parsnip::decision_tree(
     mode = "classification",
-    engine = "ranger",
-    trees = parsnip::tune(),
+    engine = "rpart",
+    cost_complexity = parsnip::tune(),
+    tree_depth = parsnip::tune(),
     min_n = parsnip::tune()
   )
   

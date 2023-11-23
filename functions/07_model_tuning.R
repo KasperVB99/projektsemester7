@@ -36,9 +36,10 @@ model_tuning = function(split_data, defined_workflows){
     tune::finalize_workflow(best_logit)
   #----------------------------------------
   
-  rand_forest_grid = dials::grid_regular(dials::trees(),
-                                   dials::min_n(),
-                                   levels = 3)
+  rand_forest_grid = dials::grid_regular(dials::cost_complexity(),
+                                         dials::tree_depth(),
+                                         dials::min_n(),
+                                         levels = 2)
   
   rand_forest_grid_results = rand_forest_workflow %>% 
     tune::tune_grid(
