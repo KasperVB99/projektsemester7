@@ -1,5 +1,6 @@
 library(magrittr)
 R.utils::sourceDirectory("./functions", modifiedOnly = FALSE)
+R.utils::sourceDirectory("./functions/other_functions", modifiedOnly = FALSE)
 
 list(
   targets::tar_target(
@@ -50,7 +51,9 @@ list(
   targets::tar_target(
     evaluated_models,
     model_evaluation(
-      fitted_and_predicted = fitted_and_predicted
+      fitted_and_predicted = fitted_and_predicted,
+      split_data = split_data,
+      tuned_models = tuned_models
     )
   )
 )

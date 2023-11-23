@@ -3,7 +3,7 @@ model_specification = function(){
     mode = "classification",
     engine = "glmnet",
     penalty = parnsip::tune(),
-    mixture = parsnip::tune()
+    mixture = 1
   )
   
   model_spec_knn = parsnip::nearest_neighbor(
@@ -12,18 +12,18 @@ model_specification = function(){
     neighbors = parsnip::tune()
   )
   
-  model_spec_rand_forest = parsnip::decision_tree(
+  model_spec_decision_tree = parsnip::decision_tree(
     mode = "classification",
     engine = "rpart",
-    cost_complexity = parsnip::tune(),
     tree_depth = parsnip::tune(),
-    min_n = parsnip::tune()
+    min_n = parsnip::tune(),
+    cost_complexity = parsnip::tune()
   )
   
   
   models = list(model_spec_logit = model_spec_logit,
                 model_spec_knn = model_spec_knn,
-                model_spec_rand_forest = model_spec_rand_forest)
+                model_spec_decision_tree = model_spec_decision_tree)
   
   return(models)
 }
