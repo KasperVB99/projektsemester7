@@ -18,16 +18,19 @@ targets::tar_load("evaluated_models")
 
 
 
-resamples %>% 
-  extract_dates_rset() %>% 
-  dplyr::mutate(id = stringr::str_replace_all(id, "Slice", "Resample ")) %>% 
-  print() %>% 
-  plot_dates_rset() + 
-  ggthemes::theme_economist() +
-  ggplot2::labs(y = "", x = "") +
-  ggplot2::theme(legend.position = "none")
+save(knn_variables, file = "knn_variables")
 
-mean(as.numeric(split_data$testing$positive_oil_return)) - 1 
+load("knn_variables")
+
+knn_variables = broom::tidy(fitted_and_predicted$fitted_models$logit_fit) %>% 
+  dplyr::filter(estimate < -0.1 | estimate > 0.1,
+                term != "(Intercept)") %>% 
+  dplyr::select(term)
+
+preprocessed_data$knn_recipe %>% 
+  recipes::step_select(recipes::all_outcomes(), variables$term) %>% 
+  recipes::prep() %>% 
+  recipes::bake(new_data = NULL)
 
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked

@@ -8,9 +8,9 @@ data_splitting = function(raw_data){
   resamples = rsample::sliding_period(training, 
                                       index = date, 
                                       period = "month", 
-                                      lookback = 12, 
-                                      assess_stop = 3, 
-                                      step = 3)
+                                      lookback = 24, 
+                                      assess_stop = 4, 
+                                      step = 12)
   
   
   initial_split_list = list(initial_split = initial_split,

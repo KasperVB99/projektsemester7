@@ -1,21 +1,19 @@
-model_evaluation = function(fitted_and_predicted){
-  logit_fit = fitted_and_predicted$logit_fit
-  knn_fit = fitted_and_predicted$knn_fit
-  rand_forest_fit = fitted_and_predicted$rand_forest
+model_evaluation = function(fitted_and_predicted, split_data, tuned_models){
+  in_sample_predictions = fitted_and_predicted$in_sample_predictions
+  in_sample_actual = split_data$training$positive_oil_return
+  out_of_sample_predictions = fitted_and_predicted$out_of_sample_predictions
+  out_of_sample_actual = split_data$testing$positive_oil_return
+  positive_percent = calculate_positive_return(split_data)
   
-  evaluation_knn = tune::collect_metrics(knn_fit) %>% 
-    dplyr::mutate(model = "knn")
+  in_sample_accuracy = calculate_accuracy(in_sample_predictions, in_sample_actual, positive_percent$mean_in_sample) 
+  cv_accuracy = calculate_accuracy_cv(tuned_models, positive_percent$mean_cv)
+  out_of_sample_accuracy = calculate_accuracy(out_of_sample_predictions, 
+                                              out_of_sample_actual, positive_percent$mean_out_of_sample)
   
-  evaluation_logit = tune::collect_metrics(logit_fit) %>% 
-    dplyr::mutate(model = "logit")
   
-  evaluation_rand_forest = tune::collect_metrics(rand_forest_fit) %>% 
-    dplyr::mutate(model = "rand_forest")
+  accuracy = list(in_sample_accuracy = in_sample_accuracy,
+                  cv_accuracy = cv_accuracy,
+                  out_of_sample_accuracy = out_of_sample_accuracy)
   
-  evaluation = evaluation_logit %>% 
-    dplyr::bind_rows(evaluation_knn, evaluation_rand_forest) %>% 
-    dplyr::filter(.metric == "accuracy") %>% 
-    dplyr::select(model, metric = .metric, estimate = .estimate)
-  
-  return(evaluation)
+  return(accuracy)
 }
