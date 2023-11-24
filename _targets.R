@@ -1,6 +1,6 @@
 library(magrittr)
 R.utils::sourceDirectory("./functions", modifiedOnly = FALSE)
-R.utils::sourceDirectory("./functions/other_functions", modifiedOnly = FALSE)
+R.utils::sourceDirectory("./other_functions", modifiedOnly = FALSE)
 
 list(
   targets::tar_target(

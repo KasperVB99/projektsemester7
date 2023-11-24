@@ -13,22 +13,22 @@ data_splitting|function|b5acd5b6594718e6|||||||||||||||
 date_end|object|1d6cef234c9eece6|||||||||||||||
 date_start|object|b3e26f153c54f91c|||||||||||||||
 define_workflows|function|95492ebae1563077|||||||||||||||
-defined_workflows|stem|d07d328621324af4|5ebdf4f4e6efbc18|777bc7e60992d6bf|-907561461||t19684.6574598874s|2cc0712ed4a6e410|1631836|rds|local|vector|||0.21||
+defined_workflows|stem|d07d328621324af4|5ebdf4f4e6efbc18|777bc7e60992d6bf|-907561461||t19685.8867926119s|2cc0712ed4a6e410|1631836|rds|local|vector|||0||
 engineered_features|stem|52a16e1cfe9b58e0|8e508c588bf8a00c|6a10196e94886cc9|-1045723845||t19634.608349112s|b58f86c8ef1b867a|2909|rds|local|vector|||0.12||
 evaluated_model|stem|98d19c8a8fa87e2b|1abb3e6ebcbb0491|6c5973828ba7925b|-588240787||t19668.6392172071s|0eb7ad5ce87b6af8|200|rds|local|vector|||0.02||
-evaluated_models|stem|f53737f7e8663091|879c011915cd952b|b1b0125e27c8a560|140718326||t19684.6577781592s|8d0aba61fa8a9196|444|rds|local|vector|||0.21||
+evaluated_models|stem|f53737f7e8663091|879c011915cd952b|b1b0125e27c8a560|140718326||t19685.8870898133s|8d0aba61fa8a9196|444|rds|local|vector|||0.15||
 feature_engineering|function|90da3a6a667953f6|||||||||||||||
 fit_and_predict|function|b72b4b0f9a2a91f6|||||||||||||||
 fit_and_predict_function|function|d8a2338d6a4e44c8|||||||||||||||
-fitted_and_predicted|stem|221dc20a8e381e27|1e592f98da140fc3|bd8b497cc3b31bb3|-285962305||t19684.6577751495s|e0aa3c6c877a7ed5|2525743|rds|local|vector|||1.12||
+fitted_and_predicted|stem|221dc20a8e381e27|1e592f98da140fc3|bd8b497cc3b31bb3|-285962305||t19685.8870875349s|e0aa3c6c877a7ed5|2525743|rds|local|vector|||1.08||
 model_evaluation|function|d0ef61525d845692|||||||||||||||
 model_specification|function|ddd140b324daf390|||||||||||||||
 model_tuning|function|370ee5e0b00e9d66|||||||||||||||
-preprocessed_data|stem|e87e0ccd5bff1a16|9d50e42f62fabbc8|54649d527ca7634b|1821694953||t19684.6574506808s|5abd09c308ef0ac3|1504546|rds|local|vector|||2.21||
+preprocessed_data|stem|e87e0ccd5bff1a16|9d50e42f62fabbc8|54649d527ca7634b|1821694953||t19685.8867881415s|5abd09c308ef0ac3|1504546|rds|local|vector|||0.12||
 raw_data|stem|73b12643869176d4|4f80f56580a708f1|4788d594f3dd6435|-979620141||t19677.6065508577s|929c419b51ad0992|146788|rds|local|vector|||8.7||
-specified_models|stem|4fa77473178fccf9|5e749b1b63e68387|b349dfe654dad546|-178471735||t19684.5218108948s|c83ff10fb37b259c|581|rds|local|vector|||0.62||
-split_data|stem|dfd078c6dac8fb74|6d4e49541493dd48|ee8966f6a9fe60af|1304765126||t19684.5963992701s|3a3d051a2c20da84|1163879|rds|local|vector|||2.54||
+specified_models|stem|4fa77473178fccf9|5e749b1b63e68387|b349dfe654dad546|-178471735||t19685.8867883602s|c83ff10fb37b259c|581|rds|local|vector|||0.02||
+split_data|stem|dfd078c6dac8fb74|6d4e49541493dd48|ee8966f6a9fe60af|1304765126||t19685.8867826548s|3a3d051a2c20da84|1163879|rds|local|vector|||2.22||
 tune_model|function|65ae31e5752c7a02|||||||||||||||
 tune_models|function|b28ed9213adf2775|||||||||||||||
-tuned_models|stem|8c8334c832344c48|139e09ce61f5e560|e9080dcdad453e82|2128359965||t19684.6577569137s|2e4aa64e6479e825|4292674|rds|local|vector|||24.74|pakke glmnet blev bygget under R version 4.3.2. pakke Matrix blev bygget under R version 4.3.2|
+tuned_models|stem|8c8334c832344c48|139e09ce61f5e560|e9080dcdad453e82|2128359965||t19685.8870702714s|2e4aa64e6479e825|4292674|rds|local|vector|||23.09|pakke glmnet blev bygget under R version 4.3.2. pakke Matrix blev bygget under R version 4.3.2|
 xts_to_tibble|function|62d732221cf15e2b|||||||||||||||
