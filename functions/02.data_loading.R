@@ -89,7 +89,7 @@ data_loading = function(date_start,
                                                          .i = date, 
                                                          .f = mean, 
                                                          na.rm = TRUE, 
-                                                         .before = lubridate::days(10), 
+                                                         .before = lubridate::days(3), 
                                                          .after = -lubridate::days(1)) - 1) %>% 
     dplyr::select(date, positive_oil_return, rolling_mean, dplyr::contains("lag")) %>% 
     tidyr::drop_na()
