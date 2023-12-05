@@ -16,21 +16,27 @@ targets::tar_load("evaluated_models")
 
 #-------------------------------------------------------------------------------
 
+b = fitted_and_predicted$out_of_sample_predictions$logit_oos_predict
+mean(as.numeric(b$.pred_class)-1)
 
 
-save(knn_variables, file = "knn_variables")
+mfs_commodity_stat_a = tidyquant::tq_get("MCSAX", 
+                                         from = date_start,
+                                         to = date_end) %>% 
+  dplyr::select(date = date, mfs_commodity_stat_a = close) %>% 
+  dplyr::arrange(date)
 
-load("knn_variables")
 
-knn_variables = broom::tidy(fitted_and_predicted$fitted_models$logit_fit) %>% 
-  dplyr::filter(estimate < -0.1 | estimate > 0.1,
-                term != "(Intercept)") %>% 
-  dplyr::select(term)
+length(split_data$testing$positive_oil_return)
+length(split_data$training$positive_oil_return)
 
-preprocessed_data$knn_recipe %>% 
-  recipes::step_select(recipes::all_outcomes(), variables$term) %>% 
-  recipes::prep() %>% 
-  recipes::bake(new_data = NULL)
+hej1 = split_data$training %>% 
+  dplyr::select(-date) %>% 
+  correlationfunnel::binarize() %>% 
+  correlationfunnel::correlate(target = positive_oil_return__0) %>% 
+  correlationfunnel::plot_correlation_funnel(interactive = TRUE)
+
+hej = broom::tidy(fitted_and_predicted$fitted_models$logit_fit)
 
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked

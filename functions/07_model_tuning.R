@@ -35,10 +35,9 @@ model_tuning = function(split_data, defined_workflows){
     tune::finalize_workflow(best_logit)
   #----------------------------------------
   
-  decision_tree_grid = dials::grid_regular(dials::min_n(),
-                                         dials::tree_depth(),
+  decision_tree_grid = dials::grid_regular(dials::tree_depth(),
                                          dials::cost_complexity(),
-                                         levels = 3)
+                                         levels = 10)
   
   decision_tree_grid_results = decision_tree_workflow %>% 
     tune::tune_grid(

@@ -67,14 +67,165 @@ data_loading = function(date_start,
   moody_corp_bond_yield = tidyquant::tq_get("DHHNGSP", 
                     get = "economic.data", 
                     from = date_start,
-                    to = date_end) %>% 
+                    to = date_end) %>%
     dplyr::select(date = date, moody_corp_bond_yield = price) %>% 
+    dplyr::arrange(date)
+  
+  soybean_oil_futures = tidyquant::tq_get("ZL=F", 
+                                          from = date_start,
+                                          to = date_end) %>%
+    dplyr::select(date = date, soybean_oil_futures = close) %>% 
+    dplyr::arrange(date)
+  
+  emini_crude_futures = tidyquant::tq_get("QM=F", 
+                                          from = date_start,
+                                          to = date_end) %>% 
+    dplyr::select(date = date, emini_crude_futures = close) %>% 
+    dplyr::arrange(date)
+  
+  micro_gold_futures = tidyquant::tq_get("MGC=F", 
+                                         from = date_start,
+                                         to = date_end) %>% 
+    dplyr::select(date = date, micro_gold_futures = close) %>% 
+    dplyr::arrange(date)
+  
+  silver_future = tidyquant::tq_get("SI=F", 
+                                    from = date_start,
+                                    to = date_end) %>% 
+    dplyr::select(date = date, silver_future = close) %>% 
+    dplyr::arrange(date)
+  
+  dow_jones = tidyquant::tq_get("^DJI", 
+                                from = date_start,
+                                to = date_end) %>% 
+    dplyr::select(date = date, dow_jones = close) %>% 
+    dplyr::arrange(date)
+  
+  sp500 = tidyquant::tq_get("^GSPC", 
+                            from = date_start,
+                            to = date_end) %>% 
+    dplyr::select(date = date, sp500 = close) %>% 
+    dplyr::arrange(date)
+  
+  corn_future = tidyquant::tq_get("ZC=F", 
+                                  from = date_start,
+                                  to = date_end) %>% 
+    dplyr::select(date = date, corn_future = close) %>% 
+    dplyr::arrange(date)
+  
+  USD_future = tidyquant::tq_get("DX=F", 
+                                 from = date_start,
+                                 to = date_end) %>% 
+    dplyr::select(date = date, USD_future = close) %>% 
+    dplyr::arrange(date)
+  
+  usa_brent_fund = tidyquant::tq_get("BNO", 
+                                     from = date_start,
+                                     to = date_end) %>% 
+    dplyr::select(date = date, usa_brent_fund = close) %>% 
+    dplyr::arrange(date)
+  
+  dow_jones_transportation = tidyquant::tq_get("^DJT", 
+                                               from = date_start,
+                                               to = date_end) %>% 
+    dplyr::select(date = date, dow_jones_transportation = close) %>% 
+    dplyr::arrange(date)
+  
+  natural_gas_future = tidyquant::tq_get("NG=F", 
+                                         from = date_start,
+                                         to = date_end) %>% 
+    dplyr::select(date = date, natural_gas_future = close) %>% 
+    dplyr::arrange(date)
+  
+  rbob_gasoline_future = tidyquant::tq_get("RB=F", 
+                                           from = date_start,
+                                           to = date_end) %>% 
+    dplyr::select(date = date, rbob_gasoline_future = close) %>% 
+    dplyr::arrange(date)
+  
+  usa_natural_gas_fund = tidyquant::tq_get("UNG", 
+                                           from = date_start,
+                                           to = date_end) %>% 
+    dplyr::select(date = date, usa_natural_gas_fund = close) %>% 
+    dplyr::arrange(date)
+  
+  proshares_bloomb_nature_gas = tidyquant::tq_get("BOIL", 
+                                                  from = date_start,
+                                                  to = date_end) %>% 
+    dplyr::select(date = date, proshares_bloomb_nature_gas = close) %>% 
+    dplyr::arrange(date)
+  
+  proshares_vix_short_t_futures = tidyquant::tq_get("UVXY", 
+                                                    from = date_start,
+                                                    to = date_end) %>% 
+    dplyr::select(date = date, proshares_vix_short_t_futures = close) %>% 
+    dplyr::arrange(date)
+  
+  chicago_srw_wheat_futures = tidyquant::tq_get("ZW=F", 
+                                                from = date_start,
+                                                to = date_end) %>% 
+    dplyr::select(date = date, chicago_srw_wheat_futures = close) %>% 
+    dplyr::arrange(date)
+  
+  mini_chicago_srw_wheat_futures = tidyquant::tq_get("XW=F", 
+                                                     from = date_start,
+                                                     to = date_end) %>% 
+    dplyr::select(date = date, mini_chicago_srw_wheat_futures = close) %>% 
+    dplyr::arrange(date)
+  
+  chicago_srw_wheat_tas_futures = tidyquant::tq_get("ZWT=F", 
+                                                    from = date_start,
+                                                    to = date_end) %>% 
+    dplyr::select(date = date, chicago_srw_wheat_tas_futures = close) %>% 
+    dplyr::arrange(date)
+  
+  pimco_commodity_fund = tidyquant::tq_get("PCRRX", 
+                                           from = date_start,
+                                           to = date_end) %>% 
+    dplyr::select(date = date, pimco_commodity_fund = close) %>% 
+    dplyr::arrange(date)
+  
+  dfa_commodity_strategy_inst = tidyquant::tq_get("DCMSX", 
+                                                  from = date_start,
+                                                  to = date_end) %>% 
+    dplyr::select(date = date, dfa_commodity_strategy_inst = close) %>% 
+    dplyr::arrange(date)
+  
+  credit_suisse_commodity_i = tidyquant::tq_get("CRSOX", 
+                                                from = date_start,
+                                                to = date_end) %>% 
+    dplyr::select(date = date, credit_suisse_commodity_i = close) %>% 
+    dplyr::arrange(date)
+  
+  blackrock_commodity_portfolio = tidyquant::tq_get("BCSAX", 
+                                                    from = date_start,
+                                                    to = date_end) %>% 
+    dplyr::select(date = date, blackrock_commodity_portfolio = close) %>% 
+    dplyr::arrange(date)
+  
+  invesco_balance_risk_commodity = tidyquant::tq_get("BRCAX", 
+                                                     from = date_start,
+                                                     to = date_end) %>% 
+    dplyr::select(date = date, invesco_balance_risk_commodity = close) %>% 
+    dplyr::arrange(date)
+  
+  mfs_commodity_stat_a = tidyquant::tq_get("MCSAX", 
+                                           from = date_start,
+                                           to = date_end) %>% 
+    dplyr::select(date = date, mfs_commodity_stat_a = close) %>% 
     dplyr::arrange(date)
   
   all_together_list = list(oil_prices_europe, oil_prices_wti, bond_spread, 
                            usd_eur_exchange, oil_volatility_etf, nat_gas_price,
                            gulf_gasoline_price, ny_gasoline_price, rbob_prices_la,
-                           moody_corp_bond_yield)
+                           moody_corp_bond_yield, soybean_oil_futures, emini_crude_futures,
+                           micro_gold_futures, silver_future, dow_jones, 
+                           sp500, corn_future, USD_future,
+                           usa_brent_fund, dow_jones_transportation, natural_gas_future,
+                           rbob_gasoline_future, usa_natural_gas_fund, proshares_bloomb_nature_gas,
+                           proshares_vix_short_t_futures, chicago_srw_wheat_futures, mini_chicago_srw_wheat_futures,
+                           pimco_commodity_fund, dfa_commodity_strategy_inst, credit_suisse_commodity_i,
+                           blackrock_commodity_portfolio, invesco_balance_risk_commodity, mfs_commodity_stat_a)
   
   all_together = all_together_list %>% 
     purrr::reduce(dplyr::full_join) %>% 
@@ -89,7 +240,7 @@ data_loading = function(date_start,
                                                          .i = date, 
                                                          .f = mean, 
                                                          na.rm = TRUE, 
-                                                         .before = lubridate::days(10), 
+                                                         .before = lubridate::days(3), 
                                                          .after = -lubridate::days(1)) - 1) %>% 
     dplyr::select(date, positive_oil_return, rolling_mean, dplyr::contains("lag")) %>% 
     tidyr::drop_na()
