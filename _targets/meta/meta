@@ -7,7 +7,7 @@ calculate_positive_return|function|6354fc86cef81f69|||||||||||||||
 calculate_positive_return_cv|function|8f9422f21069b9f7|||||||||||||||
 clean_data|stem|8f6594e2751a4531|301f753dfc8c4246|effddbc11a22316b|-1026135149||t19634.5519945942s|dbf852b7f874f1df|3842|rds|local|vector|||0.17||
 data_cleaning|function|3af4f587cce6af65|||||||||||||||
-data_loading|function|f6de1421d40ed5fc|||||||||||||||
+data_loading|function|0490a1e2cb0efac5|||||||||||||||
 data_preprocessing|function|a149bcff2c825aac|||||||||||||||
 data_splitting|function|b5acd5b6594718e6|||||||||||||||
 date_end|object|1d6cef234c9eece6|||||||||||||||
@@ -25,7 +25,7 @@ model_evaluation|function|d0ef61525d845692|||||||||||||||
 model_specification|function|ddd140b324daf390|||||||||||||||
 model_tuning|function|370ee5e0b00e9d66|||||||||||||||
 preprocessed_data|stem|e942318d82c5f250|9d50e42f62fabbc8|18aedffc1bbf683b|1821694953||t19688.6043467709s|864ff29dd1d2158a|1500934|rds|local|vector|||0.075||
-raw_data|stem|2203fbec04b05b12|4f80f56580a708f1|7d2a9e08e8e7a5c8|-979620141||t19688.6043371467s|5dd9df64261087cc|146437|rds|local|vector|||5.435||
+raw_data|stem|2203fbec04b05b12|4f80f56580a708f1|b93bf37a1802969e|-979620141||t19688.6043371467s||146437|rds|local|vector|||5.736||Cant subset columns that dont exist.31m39m Column price doesnt exist.
 specified_models|stem|967dfaa51c2a2d5d|5e749b1b63e68387|b349dfe654dad546|-178471735||t19688.5278901919s|c83ff10fb37b259c|581|rds|local|vector|||0.003||
 split_data|stem|5b93081f3c3d7347|6d4e49541493dd48|932d95c21730f5ee|1304765126||t19688.6043425556s|502bdfaf6f22e36d|1161012|rds|local|vector|||0.232||
 tune_model|function|65ae31e5752c7a02|||||||||||||||

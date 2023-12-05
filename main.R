@@ -16,21 +16,23 @@ targets::tar_load("evaluated_models")
 
 #-------------------------------------------------------------------------------
 
+length(split_data$testing$positive_oil_return)
+length(split_data$training$positive_oil_return)
 
+hej1 = split_data$training %>% 
+  dplyr::select(-date) %>% 
+  correlationfunnel::binarize() %>% 
+  correlationfunnel::correlate(target = positive_oil_return__0) %>% 
+  correlationfunnel::plot_correlation_funnel(interactive = TRUE)
 
-save(knn_variables, file = "knn_variables")
+hej = broom::tidy(fitted_and_predicted$fitted_models$logit_fit)
 
-load("knn_variables")
-
-knn_variables = broom::tidy(fitted_and_predicted$fitted_models$logit_fit) %>% 
-  dplyr::filter(estimate < -0.1 | estimate > 0.1,
-                term != "(Intercept)") %>% 
-  dplyr::select(term)
-
-preprocessed_data$knn_recipe %>% 
-  recipes::step_select(recipes::all_outcomes(), variables$term) %>% 
-  recipes::prep() %>% 
-  recipes::bake(new_data = NULL)
+w_texas_intermediate = tidyquant::tq_get("DCOILWTICO", 
+                                      get = "economic.data", 
+                                      from = date_start,
+                                      to = date_end) %>% 
+  dplyr::select(date = date, w_texas_intermediate = price) %>% 
+  dplyr::arrange(date)
 
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked

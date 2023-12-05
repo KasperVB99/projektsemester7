@@ -16,7 +16,7 @@ model_specification = function(){
     mode = "classification",
     engine = "rpart",
     tree_depth = parsnip::tune(),
-    min_n = parsnip::tune(),
+    min_n = 5,
     cost_complexity = parsnip::tune()
   )
   
