@@ -16,6 +16,17 @@ targets::tar_load("evaluated_models")
 
 #-------------------------------------------------------------------------------
 
+b = fitted_and_predicted$out_of_sample_predictions$logit_oos_predict
+mean(as.numeric(b$.pred_class)-1)
+
+
+mfs_commodity_stat_a = tidyquant::tq_get("MCSAX", 
+                                         from = date_start,
+                                         to = date_end) %>% 
+  dplyr::select(date = date, mfs_commodity_stat_a = close) %>% 
+  dplyr::arrange(date)
+
+
 length(split_data$testing$positive_oil_return)
 length(split_data$training$positive_oil_return)
 
@@ -26,13 +37,6 @@ hej1 = split_data$training %>%
   correlationfunnel::plot_correlation_funnel(interactive = TRUE)
 
 hej = broom::tidy(fitted_and_predicted$fitted_models$logit_fit)
-
-w_texas_intermediate = tidyquant::tq_get("DCOILWTICO", 
-                                      get = "economic.data", 
-                                      from = date_start,
-                                      to = date_end) %>% 
-  dplyr::select(date = date, w_texas_intermediate = price) %>% 
-  dplyr::arrange(date)
 
 ## Idéer til feature engineering:
 # 1. Gårsdagens udvikling på det amerikanske aktiemarked
