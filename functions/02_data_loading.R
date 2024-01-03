@@ -64,23 +64,10 @@ data_loading = function(date_start,
     dplyr::select(date = date, rbob_prices_la = price) %>% 
     dplyr::arrange(date)
   
-  moody_corp_bond_yield = tidyquant::tq_get("DHHNGSP", 
-                    get = "economic.data", 
-                    from = date_start,
-                    to = date_end) %>%
-    dplyr::select(date = date, moody_corp_bond_yield = price) %>% 
-    dplyr::arrange(date)
-  
   soybean_oil_futures = tidyquant::tq_get("ZL=F", 
                                           from = date_start,
                                           to = date_end) %>%
     dplyr::select(date = date, soybean_oil_futures = close) %>% 
-    dplyr::arrange(date)
-  
-  emini_crude_futures = tidyquant::tq_get("QM=F", 
-                                          from = date_start,
-                                          to = date_end) %>% 
-    dplyr::select(date = date, emini_crude_futures = close) %>% 
     dplyr::arrange(date)
   
   micro_gold_futures = tidyquant::tq_get("MGC=F", 
@@ -105,12 +92,6 @@ data_loading = function(date_start,
                             from = date_start,
                             to = date_end) %>% 
     dplyr::select(date = date, sp500 = close) %>% 
-    dplyr::arrange(date)
-  
-  corn_future = tidyquant::tq_get("ZC=F", 
-                                  from = date_start,
-                                  to = date_end) %>% 
-    dplyr::select(date = date, corn_future = close) %>% 
     dplyr::arrange(date)
   
   USD_future = tidyquant::tq_get("DX=F", 
@@ -173,18 +154,6 @@ data_loading = function(date_start,
     dplyr::select(date = date, mini_chicago_srw_wheat_futures = close) %>% 
     dplyr::arrange(date)
   
-  chicago_srw_wheat_tas_futures = tidyquant::tq_get("ZWT=F", 
-                                                    from = date_start,
-                                                    to = date_end) %>% 
-    dplyr::select(date = date, chicago_srw_wheat_tas_futures = close) %>% 
-    dplyr::arrange(date)
-  
-  pimco_commodity_fund = tidyquant::tq_get("PCRRX", 
-                                           from = date_start,
-                                           to = date_end) %>% 
-    dplyr::select(date = date, pimco_commodity_fund = close) %>% 
-    dplyr::arrange(date)
-  
   dfa_commodity_strategy_inst = tidyquant::tq_get("DCMSX", 
                                                   from = date_start,
                                                   to = date_end) %>% 
@@ -203,33 +172,23 @@ data_loading = function(date_start,
     dplyr::select(date = date, blackrock_commodity_portfolio = close) %>% 
     dplyr::arrange(date)
   
-  invesco_balance_risk_commodity = tidyquant::tq_get("BRCAX", 
-                                                     from = date_start,
-                                                     to = date_end) %>% 
-    dplyr::select(date = date, invesco_balance_risk_commodity = close) %>% 
-    dplyr::arrange(date)
-  
-  mfs_commodity_stat_a = tidyquant::tq_get("MCSAX", 
-                                           from = date_start,
-                                           to = date_end) %>% 
-    dplyr::select(date = date, mfs_commodity_stat_a = close) %>% 
-    dplyr::arrange(date)
-  
   all_together_list = list(oil_prices_europe, oil_prices_wti, bond_spread, 
                            usd_eur_exchange, oil_volatility_etf, nat_gas_price,
                            gulf_gasoline_price, ny_gasoline_price, rbob_prices_la,
-                           moody_corp_bond_yield, soybean_oil_futures, emini_crude_futures,
+                           soybean_oil_futures,
                            micro_gold_futures, silver_future, dow_jones, 
-                           sp500, corn_future, USD_future,
+                           sp500, USD_future,
                            usa_brent_fund, dow_jones_transportation, natural_gas_future,
                            rbob_gasoline_future, usa_natural_gas_fund, proshares_bloomb_nature_gas,
                            proshares_vix_short_t_futures, chicago_srw_wheat_futures, mini_chicago_srw_wheat_futures,
-                           pimco_commodity_fund, dfa_commodity_strategy_inst, credit_suisse_commodity_i,
-                           blackrock_commodity_portfolio, invesco_balance_risk_commodity, mfs_commodity_stat_a)
+                           dfa_commodity_strategy_inst, credit_suisse_commodity_i,
+                           blackrock_commodity_portfolio)
   
   all_together = all_together_list %>% 
     purrr::reduce(dplyr::full_join) %>% 
     dplyr::arrange(date) %>% 
+    dplyr::mutate(weekday = lubridate::wday(date, getOption("lubridate.week.start", 1))) %>% 
+    dplyr::filter(weekday != "sø") %>% 
     dplyr::mutate(positive_oil_return = 
                     as.factor(dplyr::if_else(log(oil_price_europe / dplyr::lag(oil_price_europe)) 
                                              > 0, 1, 0))) %>% 
@@ -244,6 +203,7 @@ data_loading = function(date_start,
                                                          .after = -lubridate::days(1)) - 1) %>% 
     dplyr::select(date, positive_oil_return, rolling_mean, dplyr::contains("lag")) %>% 
     tidyr::drop_na()
+  
   
   return(all_together)
 }

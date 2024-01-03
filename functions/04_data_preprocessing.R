@@ -9,10 +9,9 @@ data_preprocessing = function(training_data){
                          date_dow_Fri)) %>% 
       recipes::step_normalize(recipes::all_predictors())
 
-  load("knn_variables")  
+  load("knn_variables_final")  
     
-  knn_recipe = logit_recipe %>%
-    recipes::step_select(positive_oil_return, knn_variables$term, skip = TRUE)
+  knn_recipe = logit_recipe
 
   recipes = list(logit_recipe = logit_recipe,
                  knn_recipe = knn_recipe)

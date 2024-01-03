@@ -3,7 +3,6 @@ model_specification = function(){
     mode = "classification",
     engine = "glmnet",
     penalty = parnsip::tune(),
-    mixture = 1
   )
   
   model_spec_knn = parsnip::nearest_neighbor(
@@ -15,9 +14,9 @@ model_specification = function(){
   model_spec_decision_tree = parsnip::decision_tree(
     mode = "classification",
     engine = "rpart",
-    tree_depth = parsnip::tune(),
-    min_n = 5,
-    cost_complexity = parsnip::tune()
+    tree_depth = 3,
+    min_n = parsnip::tune(),
+    cost_complexity = 0.00316
   )
   
   
