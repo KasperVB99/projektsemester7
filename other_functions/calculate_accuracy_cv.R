@@ -1,22 +1,41 @@
-calculate_accuracy_cv = function(tuned_models, positive_percent){
+calculate_accuracy_cv = function(grid_results){
   names = c("logit", "knn", "decision_tree")
-  accuracy = list()
-  for (x in 1:(length(tuned_models$grid_results))){
-    accuracy[[x]] = tuned_models$grid_results[[x]] %>% 
-      tune::collect_metrics() %>% 
-      dplyr::filter(.metric == "accuracy") %>% 
-      dplyr::arrange(desc(mean)) %>% 
-      dplyr::slice(1) %>% 
-      dplyr::select(accuracy = mean) %>% 
-      dplyr::mutate(model = names[[x]])
+  row_names = c("Actually Positive", "Actually Negative", "Class Prediction")
+  col_names = c("Predicted Positive", "Predicted Negative", "Class Recall")
+  evaluation = list()
+  
+  for (x in 1:(length(grid_results))){
+    best_model = grid_results[[x]] %>% 
+      tune::select_best("accuracy")
+    
+    results = grid_results[[x]] %>% 
+      tune::collect_predictions() %>% 
+      dplyr::filter(.config == best_model$.config)
+
+    confusion = caret::confusionMatrix(data = results$.pred_class,
+                                       reference = results$positive_oil_return)
+    
+    pos_pred_value = confusion$byClass["Pos Pred Value"]
+    neg_pred_value = confusion$byClass["Neg Pred Value"]
+    sensitivity = confusion$byClass["Sensitivity"]
+    specificity = confusion$byClass["Specificity"]
+    accuracy = confusion$overall["Accuracy"]
+    
+    conf_mat = cbind(rbind(confusion$table, c(sensitivity, specificity)), 
+                          c(pos_pred_value, neg_pred_value, accuracy))
+    
+    col_names = c("Actually Negative", "Actually Positive", "Class Prediction")
+    row_names = c("Predicted Negative", "Predicted Positive", "Class Recall")
+    
+    rownames(conf_mat) = row_names
+    colnames(conf_mat) = col_names
+    
+    evaluation[[x]] = list(conf_mat = conf_mat,
+                           measures = confusion)
+    
   }
   
-  accuracy = accuracy %>% 
-    purrr::reduce(rbind) %>% 
-    dplyr::mutate(positive_percent = positive_percent,
-                  kc_score = (accuracy - positive_percent) / positive_percent * 100) %>% 
-    dplyr::select(accuracy, positive_percent, kc_score, model)
-    
+  names(evaluation) = names
   
-  return(accuracy)
+  return(evaluation)
 }

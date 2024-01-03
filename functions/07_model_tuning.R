@@ -3,6 +3,7 @@ model_tuning = function(split_data, defined_workflows){
   logit_workflow = defined_workflows$logit_workflow
   knn_workflow = defined_workflows$knn_workflow
   decision_tree_workflow = defined_workflows$decision_tree_workflow
+  control_grid = tune::control_grid(save_pred = TRUE)
   #------------------------------------------
   
   knn_grid = dials::grid_regular(dials::neighbors(),
@@ -11,7 +12,8 @@ model_tuning = function(split_data, defined_workflows){
   knn_grid_results = knn_workflow %>% 
     tune::tune_grid(
       resamples = split_data$resamples,
-      grid = knn_grid)
+      grid = knn_grid,
+      control = control_grid)
   
   best_knn = knn_grid_results %>% 
     tune::select_best("accuracy")
@@ -26,7 +28,8 @@ model_tuning = function(split_data, defined_workflows){
   logit_grid_results = logit_workflow %>% 
     tune::tune_grid(
       resamples = split_data$resamples,
-      grid = logit_grid)
+      grid = logit_grid, 
+      control = control_grid)
   
   best_logit = logit_grid_results %>% 
     tune::select_best("accuracy")
@@ -35,14 +38,14 @@ model_tuning = function(split_data, defined_workflows){
     tune::finalize_workflow(best_logit)
   #----------------------------------------
   
-  decision_tree_grid = dials::grid_regular(dials::tree_depth(),
-                                         dials::cost_complexity(),
-                                         levels = 10)
+  decision_tree_grid = dials::grid_regular(dials::min_n(),
+                                         levels = 7)
   
   decision_tree_grid_results = decision_tree_workflow %>% 
     tune::tune_grid(
       resamples = split_data$resamples,
-      grid = decision_tree_grid)
+      grid = decision_tree_grid,
+      control = control_grid)
   
   best_decision_tree = decision_tree_grid_results %>% 
     tune::select_best("accuracy")

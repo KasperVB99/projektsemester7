@@ -53,7 +53,7 @@ list(
     model_evaluation(
       fitted_and_predicted = fitted_and_predicted,
       split_data = split_data,
-      tuned_models = tuned_models
+      grid_results = tuned_models$grid_results
     )
   )
 )
